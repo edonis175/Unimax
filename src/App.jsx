@@ -1,13 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import Navbar from "./components/Navbar";
+import Hero from "./pages/Hero";
 import About from "./pages/About";
-// import Contact from "./pages/Contact";
-// import Hero from "./pages/Hero";
-// import Services from "./pages/Services";
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
 
 function App() {
-  const [showNavbarLogo, setShowNavbarLogo] = useState(false);
-
   const scrollToSection = useCallback((id) => {
     const element = document.getElementById(id);
     if (!element) return;
@@ -21,35 +19,34 @@ function App() {
   }, []);
 
   return (
-    <div className="app-root">
-      <div className="intro-overlay"></div>
-      <Navbar onNavigate={scrollToSection} showLogo={showNavbarLogo} />
+    <div className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,#1e293b,#020617_55%)] text-slate-100">
+      <Navbar onNavigate={scrollToSection} showLogo={false} />
 
-      <main className="app-main pt-24 sm:pt-28 lg:pt-32">
-        {/* <section
-          id="hero"
-          className="app-section pt-6 sm:pt-8 md:pt-10 pb-12 sm:pb-16 md:pb-24"
-        >
+      <main className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-6">
+        <section id="hero">
           <Hero />
-        </section> */}
+        </section>
+
         <section
           id="about"
-          className="app-section py-12 sm:py-16 md:py-20 lg:py-24"
+          className="scroll-mt-32 py-12 sm:py-16 md:py-20 lg:py-24"
         >
           <About />
         </section>
-        {/* <section
+
+        <section
           id="services"
-          className="app-section py-12 sm:py-16 md:py-20 lg:py-24"
+          className="scroll-mt-32 py-12 sm:py-16 md:py-20 lg:py-24"
         >
           <Services />
-        </section> */}
-        {/* <section
+        </section>
+
+        <section
           id="contact"
-          className="app-section py-12 sm:py-16 md:py-20 lg:py-24"
+          className="scroll-mt-32 py-12 sm:py-16 md:py-20 lg:py-24"
         >
           <Contact />
-        </section> */}
+        </section>
       </main>
     </div>
   );

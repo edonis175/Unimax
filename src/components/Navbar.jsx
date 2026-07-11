@@ -79,17 +79,17 @@ function Navbar({ onNavigate, showLogo }) {
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <span
-            className={`absolute h-0.5 w-5 rounded bg-white transition-all duration-300 ${
+            className={`absolute h-0.5 w-5 origin-center rounded-full bg-white transform-gpu transition-all duration-300 ${
               isOpen ? "translate-y-0 rotate-45" : "-translate-y-1.5"
             }`}
           />
           <span
-            className={`absolute h-0.5 w-5 rounded bg-white transition-all duration-300 ${
+            className={`absolute h-0.5 w-5 origin-center rounded-full bg-white transform-gpu transition-all duration-300 ${
               isOpen ? "opacity-0" : "opacity-100"
             }`}
           />
           <span
-            className={`absolute h-0.5 w-5 rounded bg-white transition-all duration-300 ${
+            className={`absolute h-0.5 w-5 origin-center rounded-full bg-white transform-gpu transition-all duration-300 ${
               isOpen ? "translate-y-0 -rotate-45" : "translate-y-1.5"
             }`}
           />
