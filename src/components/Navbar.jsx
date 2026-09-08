@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ImArrowUpRight2 } from "react-icons/im";
 
 const NAV_ITEMS = [
   { id: "hero", label: "Home" },
@@ -7,134 +8,132 @@ const NAV_ITEMS = [
   { id: "contact", label: "Contact" },
 ];
 
-function Navbar({ onNavigate, showLogo }) {
+function AnimatedLink({ item, onNavigate }) {
+  const [direction, setDirection] = useState("left");
+  const [hovered, setHovered] = useState(false);
+  const letters = [...item.label];
+  const handlePointerEnter = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setDirection(event.clientX - rect.left < rect.width / 2 ? "left" : "right");
+    setHovered(true);
+  };
+  return (
+    <a
+      href={`#${item.id}`}
+      aria-label={`Go to ${item.label}`}
+      data-hovered={hovered}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={() => setHovered(false)}
+      onFocus={() => {
+        setDirection("left");
+        setHovered(true);
+      }}
+      onBlur={() => setHovered(false)}
+      onClick={(event) => {
+        event.preventDefault();
+        onNavigate(item.id);
+      }}
+      className="nav-link inline-flex rounded-full px-3 py-2 text-sm font-semibold tracking-wide text-slate-200 outline-none transition-colors hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-sky-200 md:px-4"
+    >
+      <span aria-hidden="true">
+        {letters.map((letter, index) => (
+          <span
+            key={`${letter}-${index}`}
+            className="nav-character"
+            style={{
+              "--char-order":
+                direction === "left" ? index : letters.length - 1 - index,
+            }}
+          >
+            {letter === " " ? "\u00a0" : letter}
+          </span>
+        ))}
+      </span>
+    </a>
+  );
+}
+
+function Navbar({ onNavigate }) {
   const [isOpen, setIsOpen] = useState(false);
-
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsOpen(false);
-      }
+    const closeAtDesktop = () => {
+      if (window.innerWidth >= 768) setIsOpen(false);
     };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", closeAtDesktop);
+    return () => window.removeEventListener("resize", closeAtDesktop);
   }, []);
-
-  const handleNavigate = (id) => {
-    if (typeof onNavigate === "function") {
-      onNavigate(id);
-    }
+  const navigate = (id) => {
+    onNavigate(id);
     setIsOpen(false);
   };
-
   return (
-    <header className="fixed top-2.5 left-1/2 z-100 w-[95vw] max-w-6xl -translate-x-1/2">
-      <nav
-        className="relative flex min-h-16 items-center justify-between rounded-full border border-white/30 bg-white/10 px-3 py-2 shadow-[0_12px_40px_rgba(2,6,23,0.4),inset_0_1px_0_rgba(255,255,255,0.35)] backdrop-blur-2xl backdrop-saturate-150 sm:px-5"
-        aria-label="Primary navigation"
-      >
-        <button
-          type="button"
-          className="cursor-pointer border-none bg-transparent p-0"
-          onClick={() => handleNavigate("hero")}
-          aria-label="Go to home section"
+    <header className="fixed top-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-6xl -translate-x-1/2 sm:w-[calc(100%-3rem)]">
+      <nav className="flex min-h-16 items-center justify-between rounded-[1.35rem] border border-white/20 bg-[#061735]/72 px-3 py-2 shadow-[0_16px_45px_rgba(1,9,27,.35),inset_0_1px_0_rgba(255,255,255,.18)] backdrop-blur-2xl">
+        <a
+          href="#hero"
+          onClick={(event) => {
+            event.preventDefault();
+            navigate("hero");
+          }}
+          aria-label="UNIMAX home"
+          className="rounded-xl p-1 outline-none focus-visible:ring-2 focus-visible:ring-sky-200"
         >
           <img
             src="/images/Unimax-logo.png"
             alt="Unimax"
-            className={`h-auto w-28 transition-opacity duration-200 sm:w-32 ${
-              showLogo ? "opacity-100" : "opacity-95"
-            }`}
+            className="h-16 w-25 object-contain brightness-0 invert sm:w-32"
           />
-        </button>
-
-        <ul className="hidden items-center gap-1 md:flex">
+        </a>
+        <div className="hidden items-center gap-1 md:flex">
           {NAV_ITEMS.map((item) => (
-            <li key={item.id}>
-              <button
-                type="button"
-                className={`cursor-pointer rounded-full px-4 py-2 text-slate-100 transition-all duration-200 hover:-translate-y-0.5 hover:text-sky-300 md:text-base md:px-5 lg:text-lg lg:px-4 ${
-                  item.id === "hero" ||
-                  item.id === "about" ||
-                  item.id === "services" ||
-                  item.id === "contact"
-                    ? "md:text-lg md:px-6 lg:text-lg lg:px-5"
-                    : ""
-                }`}
-                onClick={() => handleNavigate(item.id)}
-              >
-                {item.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <button
-          type="button"
-          className="relative inline-flex h-10 w-10 items-center justify-center rounded-xl border-none bg-transparent md:hidden"
-          aria-expanded={isOpen}
-          aria-controls="unimax-mobile-menu"
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          onClick={() => setIsOpen((prev) => !prev)}
-        >
-          <span
-            className={`absolute h-0.5 w-5 origin-center rounded-full bg-white transform-gpu transition-all duration-300 ${
-              isOpen ? "translate-y-0 rotate-45" : "-translate-y-1.5"
-            }`}
-          />
-          <span
-            className={`absolute h-0.5 w-5 origin-center rounded-full bg-white transform-gpu transition-all duration-300 ${
-              isOpen ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`absolute h-0.5 w-5 origin-center rounded-full bg-white transform-gpu transition-all duration-300 ${
-              isOpen ? "translate-y-0 -rotate-45" : "translate-y-1.5"
-            }`}
-          />
-        </button>
-      </nav>
-
-      <div
-        id="unimax-mobile-menu"
-        style={{
-          transitionDelay: isOpen ? "0ms" : `${NAV_ITEMS.length * 110 + 300}ms`,
-        }}
-        className={`mt-2 mx-3 overflow-hidden rounded-2xl bg-white/10 shadow-[0_12px_40px_rgba(2,6,23,0.28),inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur-2xl backdrop-saturate-150 transition-[max-height,opacity,transform] duration-500 ease-out md:hidden ${
-          isOpen
-            ? "max-h-72 translate-y-0 opacity-100"
-            : "pointer-events-none max-h-0 opacity-0"
-        }`}
-      >
-        <div className="grid gap-1 p-2">
-          {NAV_ITEMS.map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
-              style={{
-                transitionDelay: isOpen
-                  ? `${index * 110 + 80}ms`
-                  : `${(NAV_ITEMS.length - 1 - index) * 110}ms`,
-              }}
-              className={`transform-gpu cursor-pointer rounded-xl px-3 py-3 text-left text-slate-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition-all duration-650 ease hover:-translate-y-1 hover:text-white ${
-                isOpen
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-5 opacity-0"
-              } ${
-                item.id === "hero" ||
-                item.id === "about" ||
-                item.id === "services" ||
-                item.id === "contact"
-                  ? "text-base"
-                  : "text-sm"
-              }`}
-              onClick={() => handleNavigate(item.id)}
-            >
-              {item.label}
-            </button>
+            <AnimatedLink key={item.id} item={item} onNavigate={navigate} />
           ))}
         </div>
+        <button
+          type="button"
+          onClick={() => navigate("contact")}
+          className="hidden items-center gap-2 rounded-xl border border-sky-200/30 bg-sky-300/15 px-4 py-2 text-sm font-bold text-sky-50 shadow-[inset_0_1px_0_rgba(255,255,255,.18)] transition-all hover:-translate-y-0.5 hover:bg-sky-300/25 focus-visible:outline-2 focus-visible:outline-sky-200 md:inline-flex"
+        >
+          Get in touch <ImArrowUpRight2 className="text-xs" />
+        </button>
+        <button
+          type="button"
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
+          aria-label={isOpen ? "Close navigation" : "Open navigation"}
+          onClick={() => setIsOpen((open) => !open)}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg text-white focus-visible:outline-2 focus-visible:outline-sky-200 md:hidden"
+        >
+          <span aria-hidden="true" className="relative h-4 w-5">
+            <i
+              className={`absolute left-0 top-0 block h-px w-5 bg-current transition-transform ${isOpen ? "translate-y-[7px] rotate-45" : ""}`}
+            />
+            <i
+              className={`absolute left-0 top-[7px] block h-px w-5 bg-current transition-opacity ${isOpen ? "opacity-0" : ""}`}
+            />
+            <i
+              className={`absolute left-0 top-[14px] block h-px w-5 bg-current transition-transform ${isOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
+            />
+          </span>
+        </button>
+      </nav>
+      <div
+        id="mobile-menu"
+        className={`grid overflow-hidden rounded-2xl border border-white/12 bg-[#061735]/94 px-3 backdrop-blur-2xl transition-all duration-300 md:hidden ${isOpen ? "mt-2 max-h-72 py-3 opacity-100" : "pointer-events-none max-h-0 py-0 opacity-0"}`}
+      >
+        {NAV_ITEMS.map((item) => (
+          <a
+            key={item.id}
+            href={`#${item.id}`}
+            onClick={(event) => {
+              event.preventDefault();
+              navigate(item.id);
+            }}
+            className="rounded-xl px-3 py-3 text-sm font-semibold text-slate-200 transition-colors hover:bg-white/8 hover:text-white focus-visible:outline-2 focus-visible:outline-sky-200"
+          >
+            {item.label}
+          </a>
+        ))}
       </div>
     </header>
   );

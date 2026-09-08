@@ -1,5 +1,7 @@
 import { useCallback } from "react";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import Hero from "./pages/Hero";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -7,47 +9,38 @@ import Contact from "./pages/Contact";
 
 function App() {
   const scrollToSection = useCallback((id) => {
-    const element = document.getElementById(id);
-    if (!element) return;
-
-    const y = element.getBoundingClientRect().top + window.scrollY;
-
-    window.scrollTo({
-      top: y,
-      behavior: "smooth",
-    });
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
-
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,#1e293b,#020617_55%)] text-slate-100">
-      <Navbar onNavigate={scrollToSection} showLogo={false} />
-
-      <main className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-6">
+    <div className="min-h-screen overflow-x-clip bg-[#061126] font-sans text-slate-100">
+      <Navbar onNavigate={scrollToSection} />
+      <main>
         <section id="hero">
-          <Hero />
+          <Hero onNavigate={scrollToSection} />
         </section>
-
         <section
           id="about"
-          className="scroll-mt-32 py-12 sm:py-16 md:py-20 lg:py-24"
+          className="scroll-mt-24 px-5 py-20 sm:px-8 sm:py-28 lg:px-10"
         >
-          <About />
+          <About onNavigate={scrollToSection} />
         </section>
-
         <section
           id="services"
-          className="scroll-mt-32 py-12 sm:py-16 md:py-20 lg:py-24"
+          className="scroll-mt-24 px-5 py-20 sm:px-8 sm:py-28 lg:px-10"
         >
-          <Services />
+          <Services onNavigate={scrollToSection} />
         </section>
-
         <section
           id="contact"
-          className="scroll-mt-32 py-12 sm:py-16 md:py-20 lg:py-24"
+          className="scroll-mt-24 px-5 pb-20 sm:px-8 sm:pb-28 lg:px-10"
         >
           <Contact />
         </section>
       </main>
+      <Footer onNavigate={scrollToSection} />
+      <ScrollToTop />
     </div>
   );
 }
