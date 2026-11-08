@@ -28,16 +28,17 @@ This guide will help you set up EmailJS to enable email functionality for the co
    - `{{to_email}}` - Owner's email (you can hardcode this in the template)
 
 4. Example template:
+
    ```
    Subject: New Booking Request from {{from_name}}
-   
+
    You have received a new booking request:
-   
+
    Name: {{from_name}}
    Email: {{from_email}}
    Vehicle: {{vehicle}}
    Preferred Date: {{preferred_date}}
-   
+
    Message:
    {{message}}
    ```
@@ -54,12 +55,13 @@ This guide will help you set up EmailJS to enable email functionality for the co
 Open `src/pages/Contact.jsx` and replace the following values:
 
 ```javascript
-const serviceId = "YOUR_SERVICE_ID";      // Replace with your Service ID
-const templateId = "YOUR_TEMPLATE_ID";    // Replace with your Template ID
-const publicKey = "YOUR_PUBLIC_KEY";      // Replace with your Public Key
+const serviceId = "YOUR_SERVICE_ID"; // Replace with your Service ID
+const templateId = "YOUR_TEMPLATE_ID"; // Replace with your Template ID
+const publicKey = "YOUR_PUBLIC_KEY"; // Replace with your Public Key
 ```
 
 Also update the owner's email address:
+
 ```javascript
 to_email: "owner@unimax.com", // Replace with your actual email address
 ```
@@ -82,6 +84,7 @@ to_email: "owner@unimax.com", // Replace with your actual email address
 For better security, you can use environment variables:
 
 1. Create a `.env` file in the root directory:
+
    ```
    VITE_EMAILJS_SERVICE_ID=your_service_id
    VITE_EMAILJS_TEMPLATE_ID=your_template_id
@@ -89,6 +92,7 @@ For better security, you can use environment variables:
    ```
 
 2. Update `Contact.jsx` to use environment variables:
+
    ```javascript
    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;

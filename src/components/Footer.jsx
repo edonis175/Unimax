@@ -1,9 +1,70 @@
 import { FaFacebookF, FaLocationArrow, FaPhoneAlt } from "react-icons/fa";
 
 const navItems = ["Home", "About", "Services", "Contact"];
+const currentYear = new Date().getFullYear();
 
 function Footer({ onNavigate }) {
-  return <footer className="border-t border-white/10 bg-[#040b19]"><div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-12 sm:px-8 md:grid-cols-[1.2fr_.8fr_.9fr] lg:px-10"><div><img src="/images/Unimax-logo.png" alt="Unimax" className="h-auto w-36 brightness-0 invert" /><p className="mt-5 max-w-sm text-sm leading-7 text-slate-400">Quality auto accessories, vehicle equipment and practical solutions for drivers in Vushtrri and beyond.</p></div><div><h2 className="text-sm font-bold uppercase tracking-[.2em] text-sky-200">Explore</h2><ul className="mt-5 grid gap-3">{navItems.map((item) => <li key={item}><button type="button" onClick={() => onNavigate(item.toLowerCase())} className="text-sm text-slate-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-200">{item}</button></li>)}</ul></div><div><h2 className="text-sm font-bold uppercase tracking-[.2em] text-sky-200">Visit & contact</h2><div className="mt-5 grid gap-4 text-sm text-slate-400"><a href="tel:+38349510157" className="flex items-center gap-3 transition-colors hover:text-white"><FaPhoneAlt className="text-sky-300" /> +383 49 510 157</a><span className="flex items-start gap-3"><FaLocationArrow className="mt-1 shrink-0 text-sky-300" />Ana Lin, Vushtrri 42000, Kosovo</span><a href="https://facebook.com/unimaxks" target="_blank" rel="noreferrer" className="flex items-center gap-3 transition-colors hover:text-white"><FaFacebookF className="text-sky-300" /> Facebook</a></div></div></div><div className="border-t border-white/8 px-5 py-5 text-center text-xs text-slate-500">© {new Date().getFullYear()} UNIMAX. All rights reserved.</div></footer>;
+  return (
+    <footer className="border-t border-white/10 bg-[#040b19]">
+      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-12 sm:px-8 md:grid-cols-[1.2fr_.8fr_.9fr] lg:px-10">
+        <div>
+          <img
+            src="/images/Unimax-logo.png"
+            alt="Unimax"
+            className="h-auto w-36 brightness-0 invert"
+          />
+          <p className="mt-5 max-w-sm text-sm leading-7 text-slate-400">
+            Quality auto accessories, vehicle equipment and practical solutions for drivers in
+            Vushtrri and beyond.
+          </p>
+        </div>
+        <div>
+          <h2 className="text-sm font-bold uppercase tracking-[.2em] text-sky-200">Explore</h2>
+          <ul className="mt-5 grid gap-3">
+            {navItems.map((item) => (
+              <li key={item}>
+                <button
+                  type="button"
+                  onClick={() => onNavigate(item.toLowerCase())}
+                  className="text-sm text-slate-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-200"
+                >
+                  {item}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 className="text-sm font-bold uppercase tracking-[.2em] text-sky-200">
+            Visit & contact
+          </h2>
+          <div className="mt-5 grid gap-4 text-sm text-slate-400">
+            <a
+              href="tel:+38349510157"
+              className="flex items-center gap-3 transition-colors hover:text-white"
+            >
+              <FaPhoneAlt className="text-sky-300" /> +383 49 510 157
+            </a>
+            <span className="flex items-start gap-3">
+              <FaLocationArrow className="mt-1 shrink-0 text-sky-300" />
+              Ana Lin, Vushtrri 42000, Kosovo
+            </span>
+            <a
+              href="https://facebook.com/unimaxks"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-3 transition-colors hover:text-white"
+            >
+              <FaFacebookF className="text-sky-300" /> Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="border-t border-white/8 px-5 py-5 text-center text-xs text-slate-500">
+        © {currentYear} UNIMAX. All rights reserved.
+      </div>
+    </footer>
+  );
 }
 
 export default Footer;

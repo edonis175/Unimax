@@ -94,9 +94,7 @@ const Services = () => {
               <Icon />
             </div>
             <h3 className="mt-5 text-xl font-semibold text-white">{title}</h3>
-            <p className="mt-3 text-sm leading-7 text-slate-300">
-              {description}
-            </p>
+            <p className="mt-3 text-sm leading-7 text-slate-300">{description}</p>
           </article>
         ))}
       </div>
@@ -108,8 +106,8 @@ const Services = () => {
               Looking for the Right Accessories?
             </h3>
             <p className="max-w-2xl text-base leading-7 text-slate-200 sm:text-lg">
-              Visit our store in Vushtrri or contact our team for professional
-              assistance in choosing the right products for your vehicle.
+              Visit our store in Vushtrri or contact our team for professional assistance in
+              choosing the right products for your vehicle.
             </p>
             <button
               type="button"

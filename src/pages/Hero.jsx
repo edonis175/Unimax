@@ -27,9 +27,8 @@ function Hero({ onNavigate }) {
           </Reveal>
           <Reveal delay={150}>
             <p className="mt-6 max-w-xl text-base leading-7 text-slate-200 sm:text-lg sm:leading-8">
-              UNIMAX brings dependable accessories, styling and practical
-              vehicle equipment together—so your car looks sharper, feels better
-              and is ready for the road ahead.
+              UNIMAX brings dependable accessories, styling and practical vehicle equipment
+              together—so your car looks sharper, feels better and is ready for the road ahead.
             </p>
           </Reveal>
           <Reveal delay={220}>

@@ -41,27 +41,24 @@ function About({ onNavigate }) {
               About Unimax
             </p>
             <h2 className="mt-4 max-w-2xl text-3xl font-extrabold leading-tight tracking-[-.04em] text-white sm:text-5xl">
-              A better way to equip the{" "}
-              <span className="text-sky-200">car you care about.</span>
+              A better way to equip the <span className="text-sky-200">car you care about.</span>
             </h2>
           </Reveal>
           <Reveal delay={90}>
             <div className="mt-6 max-w-2xl space-y-4 text-base leading-7 text-slate-300">
               <p>
-                UNIMAX has become a trusted destination for drivers looking for
-                quality auto accessories, vehicle equipment and practical
-                automotive solutions.
+                UNIMAX has become a trusted destination for drivers looking for quality auto
+                accessories, vehicle equipment and practical automotive solutions.
               </p>
               <p>
-                The company focuses on delivering reliable products, friendly
-                customer service and helping customers improve the appearance,
-                comfort and functionality of their vehicles.
+                The company focuses on delivering reliable products, friendly customer service and
+                helping customers improve the appearance, comfort and functionality of their
+                vehicles.
               </p>
               <p>
-                Whether customers are searching for interior accessories,
-                exterior styling products, maintenance essentials or everyday
-                automotive equipment, UNIMAX aims to provide dependable
-                solutions for every driver.
+                Whether customers are searching for interior accessories, exterior styling products,
+                maintenance essentials or everyday automotive equipment, UNIMAX aims to provide
+                dependable solutions for every driver.
               </p>
             </div>
           </Reveal>

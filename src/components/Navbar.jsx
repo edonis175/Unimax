@@ -41,8 +41,7 @@ function AnimatedLink({ item, onNavigate }) {
             key={`${letter}-${index}`}
             className="nav-character"
             style={{
-              "--char-order":
-                direction === "left" ? index : letters.length - 1 - index,
+              "--char-order": direction === "left" ? index : letters.length - 1 - index,
             }}
           >
             {letter === " " ? "\u00a0" : letter}
